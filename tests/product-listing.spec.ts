@@ -23,10 +23,10 @@ test('User logs in and views the product listing page', { tag: ["@e2e","@regress
   });
 
   await test.step('Assert text — Verify Sauce Labs Backpack is listed', async () => {
+    await inventoryPage.expectSauceLabsBackpackVisible();
     await inventoryPage.expectSauceLabsBackpackText('Sauce Labs Backpack');
   });
 });
-
 
 test('User adds a product to the cart and verifies cart count', { tag: ["@e2e","@regression","@P0","@add-to-cart-and-verify-cart-count"] }, async ({ page, loginPage, inventoryPage }) => {
   await test.step('Open — Navigate to the login page', async () => {
@@ -47,16 +47,13 @@ test('User adds a product to the cart and verifies cart count', { tag: ["@e2e","
   });
   await test.step('Assert text — Verify cart icon shows 1 item', async () => {
     await inventoryPage.expectProductsVisible();
-    await inventoryPage.expectProductsVisible();
-
-    await inventoryPage.expectProductsContainsText('1');
+    await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
   });
   await test.step('Assert text — Verify Add to Cart button changed to Remove', async () => {
     await inventoryPage.expectRemoveSauceLabsBackpackVisible();
     await inventoryPage.expectRemoveSauceLabsBackpackText('Remove');
   });
 });
-
 
 test('User removes a product from the cart and verifies cart count', { tag: ["@e2e","@regression","@P0","@remove-from-cart-and-verify-cart-count"] }, async ({ page, loginPage, inventoryPage }) => {
   await test.step('Open — Navigate to the login page', async () => {
