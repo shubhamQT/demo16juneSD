@@ -1,1 +1,23 @@
-{}
+{
+  "userLogsInAndViewsTheProductListingPage": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userAddsAProductToTheCartAndVerifiesCartCount": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userRemovesAProductFromTheCartAndVerifiesCartCount": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userNavigatesToProductDetailPageAndBackToProductListing": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userSortsProductsAndVerifiesProductOrder": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce",
+    "sortProductsByPriceLowToHigh": "lohi"
+  }
+}

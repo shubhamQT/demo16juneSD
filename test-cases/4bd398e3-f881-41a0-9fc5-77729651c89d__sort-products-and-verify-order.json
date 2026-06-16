@@ -1,0 +1,61 @@
+{
+  "id": "sort-products-and-verify-order",
+  "testPlanId": "4bd398e3-f881-41a0-9fc5-77729651c89d",
+  "requirementId": "7a5427e7-e0c5-4465-8450-77ef6b2b1046",
+  "suiteName": "Product Listing - E2E",
+  "case": {
+    "id": "sort-products-and-verify-order",
+    "title": "User sorts products and verifies product order",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "step-1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to the login page",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "step-2",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "step-3",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "step-4",
+        "action": "tap",
+        "targetDescription": "Click the login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "step-5",
+        "action": "selectOption",
+        "targetDescription": "Sort products by Price (low to high)",
+        "locatorHint": "[data-test='product_sort_container']",
+        "value": "lohi"
+      },
+      {
+        "id": "step-6",
+        "action": "assertText",
+        "targetDescription": "Verify first product is lowest price",
+        "locatorHint": ".inventory_item_price:first-child",
+        "assertion": "$7.99"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}
