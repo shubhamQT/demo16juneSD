@@ -1,0 +1,66 @@
+{
+  "id": "navigate-back-to-listing",
+  "testPlanId": "f7ee27ee-a151-4ea2-b0ad-fb2d6d9f1620",
+  "requirementId": "5d5145d4-949b-4ca5-86a7-4f89916ae06c",
+  "suiteName": "Product Listing E2E",
+  "case": {
+    "id": "navigate-back-to-listing",
+    "title": "User navigates from product detail page back to product listing",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "step-1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to login page",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "step-2",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "step-3",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "step-4",
+        "action": "tap",
+        "targetDescription": "Click Login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "step-5",
+        "action": "tap",
+        "targetDescription": "Click Sauce Labs Backpack product name",
+        "locatorHint": ".inventory_item_name",
+        "value": "Sauce Labs Backpack"
+      },
+      {
+        "id": "step-6",
+        "action": "tap",
+        "targetDescription": "Click Back to Products button",
+        "locatorHint": "[data-test='back-to-products']"
+      },
+      {
+        "id": "step-7",
+        "action": "assertVisible",
+        "targetDescription": "Verify Inventory page is displayed",
+        "locatorHint": ".inventory_list"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}
