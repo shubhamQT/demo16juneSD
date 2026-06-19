@@ -238,7 +238,7 @@ test('User navigates to product detail page and back to product listing', { tag:
   });
 });
 
-test('User sorts products and verifies sorting order', { tag: ["@e2e","@regression","@P2","@sort-products-and-verify-order"] }, async ({ page, loginPage, inventoryPage }) => {
+test('User sorts products and verifies sorting order (2)', { tag: ["@e2e","@regression","@P2","@sort-products-and-verify-order"] }, async ({ page, loginPage, inventoryPage }) => {
   await test.step('Open — Navigate to the login page', async () => {
     await page.goto('/');
   });

@@ -80,7 +80,7 @@ export class InventoryPage {
     inventoryItemNameTestAllTheThingsTShirtR: { strategy: 'css' as const, value: '[data-test="inventory-item-name"]', scope: '[data-test="inventory-container"]', scopeText: 'Sauce Labs Backpack', actionKind: 'text' as const },
     inventoryItemDescThisClassicSauceLabsTShir: { strategy: 'css' as const, value: '[data-test="inventory-item-desc"]', scope: '[data-test="inventory-container"]', scopeText: 'Sauce Labs Backpack', actionKind: 'text' as const },
     inventoryItemPrice5: { strategy: 'css' as const, value: '[data-test="inventory-item-price"]', scope: '[data-test="inventory-container"]', scopeText: 'Sauce Labs Backpack', actionKind: 'text' as const },
-    addToCartTestAllTheThingsTShirtRed: { strategy: 'role' as const, value: 'Add to cart', role: 'button', actionKind: 'button' as const },
+    addToCartTestAllthethingsTShirtRed: { strategy: 'role' as const, value: 'Add to cart', role: 'button', actionKind: 'button' as const },
     socialTwitter: { strategy: 'role' as const, value: 'Twitter', role: 'link', actionKind: 'link' as const },
     socialFacebook: { strategy: 'role' as const, value: 'Facebook', role: 'link', actionKind: 'link' as const },
     socialLinkedin: { strategy: 'role' as const, value: 'LinkedIn', role: 'link', actionKind: 'link' as const },
@@ -90,7 +90,7 @@ export class InventoryPage {
     removeSauceLabsBoltTShirt: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
     removeSauceLabsFleeceJacket: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
     removeSauceLabsOnesie: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
-    removeTestAllTheThingsTShirtRed: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
+    removeTestAllthethingsTShirtRed: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
   } as const;
 
   constructor(private readonly page: Page) {}
@@ -1187,40 +1187,40 @@ export class InventoryPage {
     await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.inventoryItemPrice5));
   }
 
-  async clickAddToCartTestAllTheThingsTShirtRed(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed));
+  async clickAddToCartTestAllthethingsTShirtRed(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed));
   }
 
-  async doubleClickAddToCartTestAllTheThingsTShirtRed(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed));
+  async doubleClickAddToCartTestAllthethingsTShirtRed(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed));
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), expected, timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), expected, timeoutMs);
   }
 
-  async expectAddToCartTestAllTheThingsTShirtRedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed), substring, timeoutMs);
+  async expectAddToCartTestAllthethingsTShirtRedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed), substring, timeoutMs);
   }
 
-  async scrollAddToCartTestAllTheThingsTShirtRedIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllTheThingsTShirtRed));
+  async scrollAddToCartTestAllthethingsTShirtRedIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.addToCartTestAllthethingsTShirtRed));
   }
 
   async clickSocialTwitter(): Promise<void> {
@@ -1519,40 +1519,40 @@ export class InventoryPage {
     await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.removeSauceLabsOnesie));
   }
 
-  async clickRemoveTestAllTheThingsTShirtRed(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed));
+  async clickRemoveTestAllthethingsTShirtRed(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed));
   }
 
-  async doubleClickRemoveTestAllTheThingsTShirtRed(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed));
+  async doubleClickRemoveTestAllthethingsTShirtRed(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed));
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), timeoutMs);
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), expected, timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), expected, timeoutMs);
   }
 
-  async expectRemoveTestAllTheThingsTShirtRedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed), substring, timeoutMs);
+  async expectRemoveTestAllthethingsTShirtRedContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed), substring, timeoutMs);
   }
 
-  async scrollRemoveTestAllTheThingsTShirtRedIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllTheThingsTShirtRed));
+  async scrollRemoveTestAllthethingsTShirtRedIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryPage.L.removeTestAllthethingsTShirtRed));
   }
 
 
