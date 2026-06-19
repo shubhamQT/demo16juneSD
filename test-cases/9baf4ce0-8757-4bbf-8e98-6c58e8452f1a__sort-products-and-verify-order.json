@@ -1,0 +1,62 @@
+{
+  "id": "sort-products-and-verify-order",
+  "testPlanId": "9baf4ce0-8757-4bbf-8e98-6c58e8452f1a",
+  "requirementId": "5d5145d4-949b-4ca5-86a7-4f89916ae06c",
+  "suiteName": "Product Listing E2E",
+  "case": {
+    "id": "sort-products-and-verify-order",
+    "title": "User sorts products and verifies sorting order",
+    "priority": "P2",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-login-page",
+        "action": "openUrl",
+        "targetDescription": "Navigate to the login page",
+        "locatorHint": "https://www.saucedemo.com/",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "fill-username",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "fill-password",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "click-login",
+        "action": "tap",
+        "targetDescription": "Click Login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "select-sort-option",
+        "action": "selectOption",
+        "targetDescription": "Select 'Price (low to high)' from sort dropdown",
+        "locatorHint": "[data-test='product_sort_container']",
+        "value": "lohi"
+      },
+      {
+        "id": "assert-sorted-products",
+        "action": "assertText",
+        "targetDescription": "Verify first product is lowest price",
+        "locatorHint": ".inventory_item_price:first-child",
+        "assertion": "$7.99"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

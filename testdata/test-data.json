@@ -10,6 +10,7 @@
   "userSortsProductsAndVerifiesSortingOrder": {
     "enterUsername": "standard_user",
     "enterPassword": "secret_sauce",
+    "selectPriceLowToHighFromSortDropdown": "lohi",
     "selectSortOptionPriceLowToHigh": "lohi"
   },
   "userNavigatesToProductDetailPageAndVerifiesProductInformation": {
@@ -17,6 +18,22 @@
     "enterPassword": "secret_sauce"
   },
   "userNavigatesFromProductDetailPageBackToProductListing": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userLogsInAndViewsTheProductListingPage": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userAddsAProductToCartAndVerifiesCartCount": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userRemovesAProductFromCartAndVerifiesCartCount": {
+    "enterUsername": "standard_user",
+    "enterPassword": "secret_sauce"
+  },
+  "userNavigatesToProductDetailPageAndBackToProductListing": {
     "enterUsername": "standard_user",
     "enterPassword": "secret_sauce"
   }

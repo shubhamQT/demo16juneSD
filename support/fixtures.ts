@@ -2,7 +2,6 @@ import { test as base, expect } from "@playwright/test";
 import { CartPage } from "../pageobjects/CartPage";
 import { CheckoutCompletePage } from "../pageobjects/CheckoutCompletePage";
 import { CheckoutStepOnePage } from "../pageobjects/CheckoutStepOnePage";
-import { CheckoutStepTwoPage } from "../pageobjects/CheckoutStepTwoPage";
 import { InventoryItemPage } from "../pageobjects/InventoryItemPage";
 import { InventoryPage } from "../pageobjects/InventoryPage";
 import { LoginPage } from "../pageobjects/LoginPage";
@@ -11,7 +10,6 @@ type AppFixtures = {
   cartPage: CartPage;
   checkoutCompletePage: CheckoutCompletePage;
   checkoutStepOnePage: CheckoutStepOnePage;
-  checkoutStepTwoPage: CheckoutStepTwoPage;
   inventoryItemPage: InventoryItemPage;
   inventoryPage: InventoryPage;
   loginPage: LoginPage;
@@ -26,9 +24,6 @@ export const test = base.extend<AppFixtures>({
   },
   checkoutStepOnePage: async ({ page }, use) => {
     await use(new CheckoutStepOnePage(page));
-  },
-  checkoutStepTwoPage: async ({ page }, use) => {
-    await use(new CheckoutStepTwoPage(page));
   },
   inventoryItemPage: async ({ page }, use) => {
     await use(new InventoryItemPage(page));

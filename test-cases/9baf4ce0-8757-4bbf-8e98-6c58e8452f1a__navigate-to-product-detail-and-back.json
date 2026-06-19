@@ -1,0 +1,80 @@
+{
+  "id": "navigate-to-product-detail-and-back",
+  "testPlanId": "9baf4ce0-8757-4bbf-8e98-6c58e8452f1a",
+  "requirementId": "5d5145d4-949b-4ca5-86a7-4f89916ae06c",
+  "suiteName": "Product Listing E2E",
+  "case": {
+    "id": "navigate-to-product-detail-and-back",
+    "title": "User navigates to product detail page and back to product listing",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-login-page",
+        "action": "openUrl",
+        "targetDescription": "Navigate to the login page",
+        "locatorHint": "https://www.saucedemo.com/",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "fill-username",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "fill-password",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "click-login",
+        "action": "tap",
+        "targetDescription": "Click Login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "click-product-title",
+        "action": "tap",
+        "targetDescription": "Click on Sauce Labs Backpack product title",
+        "locatorHint": ".inventory_item_name",
+        "value": "Sauce Labs Backpack"
+      },
+      {
+        "id": "assert-product-detail",
+        "action": "assertVisible",
+        "targetDescription": "Verify product detail page is displayed",
+        "locatorHint": ".inventory_details_desc_container"
+      },
+      {
+        "id": "assert-product-detail-title",
+        "action": "assertText",
+        "targetDescription": "Verify product detail title is Sauce Labs Backpack",
+        "locatorHint": ".inventory_details_name",
+        "assertion": "Sauce Labs Backpack"
+      },
+      {
+        "id": "click-back-to-products",
+        "action": "tap",
+        "targetDescription": "Click Back to Products button",
+        "locatorHint": "[data-test='back-to-products']"
+      },
+      {
+        "id": "assert-inventory-page",
+        "action": "assertVisible",
+        "targetDescription": "Verify Inventory page is displayed again",
+        "locatorHint": ".inventory_list"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

@@ -41,13 +41,17 @@ import {
 export class InventoryItemPage {
   private static readonly L = {
     openMenu: { strategy: 'role' as const, value: 'Open Menu', role: 'button', actionKind: 'button' as const },
-    shoppingCart: { strategy: 'testId' as const, value: 'shopping-cart-link', actionKind: 'link' as const },
+    shoppingCart: { strategy: 'css' as const, value: '[data-test="shopping-cart-link"]', actionKind: 'link' as const },
     backToProducts: { strategy: 'role' as const, value: 'Back to products', role: 'button', actionKind: 'button' as const },
-    addToCart: { strategy: 'role' as const, value: 'Add to cart', role: 'button', actionKind: 'button' as const },
-    twitter: { strategy: 'role' as const, value: 'Twitter', role: 'link', actionKind: 'link' as const },
-    facebook: { strategy: 'role' as const, value: 'Facebook', role: 'link', actionKind: 'link' as const },
-    linkedIn: { strategy: 'role' as const, value: 'LinkedIn', role: 'link', actionKind: 'link' as const },
+    inventoryItemName: { strategy: 'css' as const, value: '[data-test="inventory-item-name"]', actionKind: 'text' as const },
+    inventoryItemDesc: { strategy: 'css' as const, value: '[data-test="inventory-item-desc"]', actionKind: 'text' as const },
+    inventoryItemPrice: { strategy: 'css' as const, value: '[data-test="inventory-item-price"]', actionKind: 'text' as const },
     remove: { strategy: 'role' as const, value: 'Remove', role: 'button', actionKind: 'button' as const },
+    socialTwitter: { strategy: 'role' as const, value: 'Twitter', role: 'link', actionKind: 'link' as const },
+    socialFacebook: { strategy: 'role' as const, value: 'Facebook', role: 'link', actionKind: 'link' as const },
+    socialLinkedin: { strategy: 'role' as const, value: 'LinkedIn', role: 'link', actionKind: 'link' as const },
+    footerCopy: { strategy: 'css' as const, value: '[data-test="footer-copy"]', actionKind: 'text' as const },
+    addToCart: { strategy: 'role' as const, value: 'Add to cart', role: 'button', actionKind: 'button' as const },
   } as const;
 
   constructor(private readonly page: Page) {}
@@ -152,132 +156,76 @@ export class InventoryItemPage {
     await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.backToProducts));
   }
 
-  async clickAddToCart(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  async getInnerTextInventoryItemName(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName));
   }
 
-  async doubleClickAddToCart(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  async expectInventoryItemNameVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectAddToCartVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async expectInventoryItemNameHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectAddToCartHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async expectInventoryItemNameText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.inventoryItemName), expected, timeoutMs);
   }
 
-  async expectAddToCartEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async expectInventoryItemNameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.inventoryItemName), substring, timeoutMs);
   }
 
-  async expectAddToCartDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async scrollInventoryItemNameIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName));
   }
 
-  async expectAddToCartText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryItemPage.L.addToCart), expected, timeoutMs);
+  async getInnerTextInventoryItemDesc(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc));
   }
 
-  async expectAddToCartContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryItemPage.L.addToCart), substring, timeoutMs);
+  async expectInventoryItemDescVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async scrollAddToCartIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  async expectInventoryItemDescHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async clickTwitter(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.twitter));
+  async expectInventoryItemDescText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), expected, timeoutMs);
   }
 
-  async doubleClickTwitter(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.twitter));
+  async expectInventoryItemDescContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), substring, timeoutMs);
   }
 
-  async expectTwitterVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async scrollInventoryItemDescIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc));
   }
 
-  async expectTwitterHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async getInnerTextInventoryItemPrice(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice));
   }
 
-  async expectTwitterText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryItemPage.L.twitter), expected, timeoutMs);
+  async expectInventoryItemPriceVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectTwitterContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryItemPage.L.twitter), substring, timeoutMs);
+  async expectInventoryItemPriceHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async scrollTwitterIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.twitter));
+  async expectInventoryItemPriceText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), expected, timeoutMs);
   }
 
-  async clickFacebook(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.facebook));
+  async expectInventoryItemPriceContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), substring, timeoutMs);
   }
 
-  async doubleClickFacebook(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.facebook));
-  }
-
-  async expectFacebookVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
-  }
-
-  async expectFacebookHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
-  }
-
-  async expectFacebookText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryItemPage.L.facebook), expected, timeoutMs);
-  }
-
-  async expectFacebookContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryItemPage.L.facebook), substring, timeoutMs);
-  }
-
-  async scrollFacebookIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.facebook));
-  }
-
-  async clickLinkedIn(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.linkedIn));
-  }
-
-  async doubleClickLinkedIn(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.linkedIn));
-  }
-
-  async expectLinkedInVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
-  }
-
-  async expectLinkedInHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
-  }
-
-  async expectLinkedInText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, InventoryItemPage.L.linkedIn), expected, timeoutMs);
-  }
-
-  async expectLinkedInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, InventoryItemPage.L.linkedIn), substring, timeoutMs);
-  }
-
-  async scrollLinkedInIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.linkedIn));
-  }
-
-  async getPageTitle(): Promise<string> {
-    return this.page.title();
-  }
-
-  async expectPageTitle(expected: string | RegExp, timeoutMs = 30_000): Promise<void> {
-    await expect(this.page).toHaveTitle(expected, { timeout: timeoutMs });
+  async scrollInventoryItemPriceIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice));
   }
 
   async clickRemove(): Promise<void> {
@@ -314,6 +262,158 @@ export class InventoryItemPage {
 
   async scrollRemoveIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.remove));
+  }
+
+  async clickSocialTwitter(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialTwitter));
+  }
+
+  async doubleClickSocialTwitter(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialTwitter));
+  }
+
+  async expectSocialTwitterVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.socialTwitter), expected, timeoutMs);
+  }
+
+  async expectSocialTwitterContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.socialTwitter), substring, timeoutMs);
+  }
+
+  async scrollSocialTwitterIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.socialTwitter));
+  }
+
+  async clickSocialFacebook(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialFacebook));
+  }
+
+  async doubleClickSocialFacebook(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialFacebook));
+  }
+
+  async expectSocialFacebookVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.socialFacebook), expected, timeoutMs);
+  }
+
+  async expectSocialFacebookContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.socialFacebook), substring, timeoutMs);
+  }
+
+  async scrollSocialFacebookIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.socialFacebook));
+  }
+
+  async clickSocialLinkedin(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialLinkedin));
+  }
+
+  async doubleClickSocialLinkedin(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.socialLinkedin));
+  }
+
+  async expectSocialLinkedinVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.socialLinkedin), expected, timeoutMs);
+  }
+
+  async expectSocialLinkedinContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.socialLinkedin), substring, timeoutMs);
+  }
+
+  async scrollSocialLinkedinIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.socialLinkedin));
+  }
+
+  async getInnerTextFooterCopy(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, InventoryItemPage.L.footerCopy));
+  }
+
+  async expectFooterCopyVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.footerCopy), expected, timeoutMs);
+  }
+
+  async expectFooterCopyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.footerCopy), substring, timeoutMs);
+  }
+
+  async scrollFooterCopyIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.footerCopy));
+  }
+
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
+  }
+
+  async expectPageTitle(expected: string | RegExp, timeoutMs = 30_000): Promise<void> {
+    await expect(this.page).toHaveTitle(expected, { timeout: timeoutMs });
+  }
+
+  async clickAddToCart(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  }
+
+  async doubleClickAddToCart(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  }
+
+  async expectAddToCartVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, InventoryItemPage.L.addToCart), expected, timeoutMs);
+  }
+
+  async expectAddToCartContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, InventoryItemPage.L.addToCart), substring, timeoutMs);
+  }
+
+  async scrollAddToCartIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
   }
 
 
@@ -397,124 +497,124 @@ export class InventoryItemPage {
     await expectCount(webLocator(this.page, InventoryItemPage.L.backToProducts), count, timeoutMs);
   }
 
-  async longPressAddToCart(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  async clickInventoryItemName(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName));
   }
 
-  async expectAddToCartValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, InventoryItemPage.L.addToCart), value, timeoutMs);
+  async doubleClickInventoryItemName(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName));
   }
 
-  async expectAddToCartChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async longPressInventoryItemName(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName));
   }
 
-  async expectAddToCartUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async expectInventoryItemNameValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.inventoryItemName), value, timeoutMs);
   }
 
-  async expectAddToCartFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  async expectInventoryItemNameEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectAddToCartCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, InventoryItemPage.L.addToCart), count, timeoutMs);
+  async expectInventoryItemNameDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async longPressTwitter(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.twitter));
+  async expectInventoryItemNameChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectTwitterValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, InventoryItemPage.L.twitter), value, timeoutMs);
+  async expectInventoryItemNameUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectTwitterEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async expectInventoryItemNameFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
   }
 
-  async expectTwitterDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async expectInventoryItemNameCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.inventoryItemName), count, timeoutMs);
   }
 
-  async expectTwitterChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async clickInventoryItemDesc(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc));
   }
 
-  async expectTwitterUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async doubleClickInventoryItemDesc(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc));
   }
 
-  async expectTwitterFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, InventoryItemPage.L.twitter), timeoutMs);
+  async longPressInventoryItemDesc(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc));
   }
 
-  async expectTwitterCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, InventoryItemPage.L.twitter), count, timeoutMs);
+  async expectInventoryItemDescValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), value, timeoutMs);
   }
 
-  async longPressFacebook(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.facebook));
+  async expectInventoryItemDescEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async expectFacebookValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, InventoryItemPage.L.facebook), value, timeoutMs);
+  async expectInventoryItemDescDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async expectFacebookEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
+  async expectInventoryItemDescChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async expectFacebookDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
+  async expectInventoryItemDescUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async expectFacebookChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
+  async expectInventoryItemDescFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), timeoutMs);
   }
 
-  async expectFacebookUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
+  async expectInventoryItemDescCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.inventoryItemDesc), count, timeoutMs);
   }
 
-  async expectFacebookFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, InventoryItemPage.L.facebook), timeoutMs);
+  async clickInventoryItemPrice(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice));
   }
 
-  async expectFacebookCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, InventoryItemPage.L.facebook), count, timeoutMs);
+  async doubleClickInventoryItemPrice(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice));
   }
 
-  async longPressLinkedIn(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.linkedIn));
+  async longPressInventoryItemPrice(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice));
   }
 
-  async expectLinkedInValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, InventoryItemPage.L.linkedIn), value, timeoutMs);
+  async expectInventoryItemPriceValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), value, timeoutMs);
   }
 
-  async expectLinkedInEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
+  async expectInventoryItemPriceEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectLinkedInDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
+  async expectInventoryItemPriceDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectLinkedInChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
+  async expectInventoryItemPriceChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectLinkedInUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
+  async expectInventoryItemPriceUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectLinkedInFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, InventoryItemPage.L.linkedIn), timeoutMs);
+  async expectInventoryItemPriceFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), timeoutMs);
   }
 
-  async expectLinkedInCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, InventoryItemPage.L.linkedIn), count, timeoutMs);
+  async expectInventoryItemPriceCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.inventoryItemPrice), count, timeoutMs);
   }
 
   async longPressRemove(): Promise<void> {
@@ -539,6 +639,166 @@ export class InventoryItemPage {
 
   async expectRemoveCount(count: number, timeoutMs = 30_000): Promise<void> {
     await expectCount(webLocator(this.page, InventoryItemPage.L.remove), count, timeoutMs);
+  }
+
+  async longPressSocialTwitter(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.socialTwitter));
+  }
+
+  async expectSocialTwitterValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.socialTwitter), value, timeoutMs);
+  }
+
+  async expectSocialTwitterEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.socialTwitter), timeoutMs);
+  }
+
+  async expectSocialTwitterCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.socialTwitter), count, timeoutMs);
+  }
+
+  async longPressSocialFacebook(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.socialFacebook));
+  }
+
+  async expectSocialFacebookValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.socialFacebook), value, timeoutMs);
+  }
+
+  async expectSocialFacebookEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.socialFacebook), timeoutMs);
+  }
+
+  async expectSocialFacebookCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.socialFacebook), count, timeoutMs);
+  }
+
+  async longPressSocialLinkedin(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.socialLinkedin));
+  }
+
+  async expectSocialLinkedinValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.socialLinkedin), value, timeoutMs);
+  }
+
+  async expectSocialLinkedinEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.socialLinkedin), timeoutMs);
+  }
+
+  async expectSocialLinkedinCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.socialLinkedin), count, timeoutMs);
+  }
+
+  async clickFooterCopy(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, InventoryItemPage.L.footerCopy));
+  }
+
+  async doubleClickFooterCopy(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, InventoryItemPage.L.footerCopy));
+  }
+
+  async longPressFooterCopy(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.footerCopy));
+  }
+
+  async expectFooterCopyValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.footerCopy), value, timeoutMs);
+  }
+
+  async expectFooterCopyEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.footerCopy), count, timeoutMs);
+  }
+
+  async longPressAddToCart(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, InventoryItemPage.L.addToCart));
+  }
+
+  async expectAddToCartValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, InventoryItemPage.L.addToCart), value, timeoutMs);
+  }
+
+  async expectAddToCartChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, InventoryItemPage.L.addToCart), timeoutMs);
+  }
+
+  async expectAddToCartCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, InventoryItemPage.L.addToCart), count, timeoutMs);
   }
 
 }

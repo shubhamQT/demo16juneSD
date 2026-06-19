@@ -40,53 +40,57 @@ import {
 
 export class LoginPage {
   private static readonly L = {
-    userName: { strategy: 'testId' as const, value: 'username', actionKind: 'textbox' as const },
-    password: { strategy: 'testId' as const, value: 'password', actionKind: 'textbox' as const },
-    loginButton: { strategy: 'testId' as const, value: 'login-button', actionKind: 'generic' as const },
+    username: { strategy: 'css' as const, value: '[data-test="username"]', actionKind: 'textbox' as const },
+    password: { strategy: 'css' as const, value: '[data-test="password"]', actionKind: 'textbox' as const },
+    login: { strategy: 'css' as const, value: '[data-test="login-button"]', actionKind: 'generic' as const },
+    loginCredentials: { strategy: 'css' as const, value: '[data-test="login-credentials"]', actionKind: 'text' as const },
     acceptedUsernamesAre: { strategy: 'text' as const, value: 'Accepted usernames are:', actionKind: 'text' as const },
+    loginPassword: { strategy: 'css' as const, value: '[data-test="login-password"]', actionKind: 'text' as const },
     passwordForAllUsers: { strategy: 'text' as const, value: 'Password for all users:', actionKind: 'text' as const },
+    error: { strategy: 'css' as const, value: '[data-test="error"]', actionKind: 'text' as const },
+    errorButton: { strategy: 'css' as const, value: '[data-test="error-button"]', actionKind: 'button' as const },
   } as const;
 
   constructor(private readonly page: Page) {}
 
-  async fillUserName(value: string): Promise<void> {
-    await fillWhenVisible(webLocator(this.page, LoginPage.L.userName), value);
+  async fillUsername(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, LoginPage.L.username), value);
   }
 
-  async clearUserName(): Promise<void> {
-    await clearWhenVisible(webLocator(this.page, LoginPage.L.userName));
+  async clearUsername(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, LoginPage.L.username));
   }
 
-  async typeTextUserName(value: string): Promise<void> {
-    await typeTextWhenVisible(webLocator(this.page, LoginPage.L.userName), value);
+  async typeTextUsername(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, LoginPage.L.username), value);
   }
 
-  async expectUserNameVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameValue(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, LoginPage.L.userName), expected, timeoutMs);
+  async expectUsernameValue(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.username), expected, timeoutMs);
   }
 
-  async expectUserNameFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async scrollUserNameIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.userName));
+  async scrollUsernameIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.username));
   }
 
   async fillPassword(value: string): Promise<void> {
@@ -129,40 +133,64 @@ export class LoginPage {
     await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.password));
   }
 
-  async clickLoginButton(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, LoginPage.L.loginButton));
+  async clickLogin(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, LoginPage.L.login));
   }
 
-  async doubleClickLoginButton(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.loginButton));
+  async doubleClickLogin(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.login));
   }
 
-  async expectLoginButtonVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, LoginPage.L.loginButton), expected, timeoutMs);
+  async expectLoginText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.login), expected, timeoutMs);
   }
 
-  async expectLoginButtonContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, LoginPage.L.loginButton), substring, timeoutMs);
+  async expectLoginContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.login), substring, timeoutMs);
   }
 
-  async scrollLoginButtonIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.loginButton));
+  async scrollLoginIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.login));
+  }
+
+  async getInnerTextLoginCredentials(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, LoginPage.L.loginCredentials));
+  }
+
+  async expectLoginCredentialsVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.loginCredentials), expected, timeoutMs);
+  }
+
+  async expectLoginCredentialsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.loginCredentials), substring, timeoutMs);
+  }
+
+  async scrollLoginCredentialsIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.loginCredentials));
   }
 
   async getInnerTextAcceptedUsernamesAre(): Promise<string> {
@@ -187,6 +215,30 @@ export class LoginPage {
 
   async scrollAcceptedUsernamesAreIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.acceptedUsernamesAre));
+  }
+
+  async getInnerTextLoginPassword(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, LoginPage.L.loginPassword));
+  }
+
+  async expectLoginPasswordVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.loginPassword), expected, timeoutMs);
+  }
+
+  async expectLoginPasswordContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.loginPassword), substring, timeoutMs);
+  }
+
+  async scrollLoginPasswordIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.loginPassword));
   }
 
   async getInnerTextPasswordForAllUsers(): Promise<string> {
@@ -221,31 +273,91 @@ export class LoginPage {
     await expect(this.page).toHaveTitle(expected, { timeout: timeoutMs });
   }
 
+  async getInnerTextError(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, LoginPage.L.error));
+  }
+
+  async expectErrorVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.error), expected, timeoutMs);
+  }
+
+  async expectErrorContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.error), substring, timeoutMs);
+  }
+
+  async scrollErrorIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.error));
+  }
+
+  async clickErrorButton(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, LoginPage.L.errorButton));
+  }
+
+  async doubleClickErrorButton(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.errorButton));
+  }
+
+  async expectErrorButtonVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.errorButton), expected, timeoutMs);
+  }
+
+  async expectErrorButtonContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.errorButton), substring, timeoutMs);
+  }
+
+  async scrollErrorButtonIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, LoginPage.L.errorButton));
+  }
+
   async performLogin(username: string, password: string): Promise<void> {
-    await this.fillUserName(username);
+    await this.fillUsername(username);
     await this.fillPassword(password);
-    await this.clickLoginButton();
+    await this.clickLogin();
   }
 
 
-  async expectUserNameText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, LoginPage.L.userName), expected, timeoutMs);
+  async expectUsernameText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, LoginPage.L.username), expected, timeoutMs);
   }
 
-  async expectUserNameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, LoginPage.L.userName), substring, timeoutMs);
+  async expectUsernameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, LoginPage.L.username), substring, timeoutMs);
   }
 
-  async expectUserNameChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, LoginPage.L.userName), timeoutMs);
+  async expectUsernameUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.username), timeoutMs);
   }
 
-  async expectUserNameCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, LoginPage.L.userName), count, timeoutMs);
+  async expectUsernameCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.username), count, timeoutMs);
   }
 
   async expectPasswordText(expected: string, timeoutMs = 30_000): Promise<void> {
@@ -268,28 +380,68 @@ export class LoginPage {
     await expectCount(webLocator(this.page, LoginPage.L.password), count, timeoutMs);
   }
 
-  async longPressLoginButton(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, LoginPage.L.loginButton));
+  async longPressLogin(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, LoginPage.L.login));
   }
 
-  async expectLoginButtonValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, LoginPage.L.loginButton), value, timeoutMs);
+  async expectLoginValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.login), value, timeoutMs);
   }
 
-  async expectLoginButtonChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, LoginPage.L.loginButton), timeoutMs);
+  async expectLoginFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.login), timeoutMs);
   }
 
-  async expectLoginButtonCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, LoginPage.L.loginButton), count, timeoutMs);
+  async expectLoginCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.login), count, timeoutMs);
+  }
+
+  async clickLoginCredentials(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, LoginPage.L.loginCredentials));
+  }
+
+  async doubleClickLoginCredentials(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.loginCredentials));
+  }
+
+  async longPressLoginCredentials(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, LoginPage.L.loginCredentials));
+  }
+
+  async expectLoginCredentialsValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.loginCredentials), value, timeoutMs);
+  }
+
+  async expectLoginCredentialsEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.loginCredentials), timeoutMs);
+  }
+
+  async expectLoginCredentialsCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.loginCredentials), count, timeoutMs);
   }
 
   async clickAcceptedUsernamesAre(): Promise<void> {
@@ -332,6 +484,46 @@ export class LoginPage {
     await expectCount(webLocator(this.page, LoginPage.L.acceptedUsernamesAre), count, timeoutMs);
   }
 
+  async clickLoginPassword(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, LoginPage.L.loginPassword));
+  }
+
+  async doubleClickLoginPassword(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.loginPassword));
+  }
+
+  async longPressLoginPassword(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, LoginPage.L.loginPassword));
+  }
+
+  async expectLoginPasswordValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.loginPassword), value, timeoutMs);
+  }
+
+  async expectLoginPasswordEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.loginPassword), timeoutMs);
+  }
+
+  async expectLoginPasswordCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.loginPassword), count, timeoutMs);
+  }
+
   async clickPasswordForAllUsers(): Promise<void> {
     await clickWhenVisible(webLocator(this.page, LoginPage.L.passwordForAllUsers));
   }
@@ -370,6 +562,70 @@ export class LoginPage {
 
   async expectPasswordForAllUsersCount(count: number, timeoutMs = 30_000): Promise<void> {
     await expectCount(webLocator(this.page, LoginPage.L.passwordForAllUsers), count, timeoutMs);
+  }
+
+  async clickError(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, LoginPage.L.error));
+  }
+
+  async doubleClickError(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, LoginPage.L.error));
+  }
+
+  async longPressError(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, LoginPage.L.error));
+  }
+
+  async expectErrorValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.error), value, timeoutMs);
+  }
+
+  async expectErrorEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.error), timeoutMs);
+  }
+
+  async expectErrorCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.error), count, timeoutMs);
+  }
+
+  async longPressErrorButton(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, LoginPage.L.errorButton));
+  }
+
+  async expectErrorButtonValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, LoginPage.L.errorButton), value, timeoutMs);
+  }
+
+  async expectErrorButtonChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, LoginPage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, LoginPage.L.errorButton), count, timeoutMs);
   }
 
 }

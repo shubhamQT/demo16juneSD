@@ -1,0 +1,60 @@
+{
+  "id": "login-and-view-product-list",
+  "testPlanId": "9baf4ce0-8757-4bbf-8e98-6c58e8452f1a",
+  "requirementId": "5d5145d4-949b-4ca5-86a7-4f89916ae06c",
+  "suiteName": "Product Listing E2E",
+  "case": {
+    "id": "login-and-view-product-list",
+    "title": "User logs in and views the product listing page",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-login-page",
+        "action": "openUrl",
+        "targetDescription": "Navigate to the login page",
+        "locatorHint": "https://www.saucedemo.com/",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "fill-username",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "fill-password",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "click-login",
+        "action": "tap",
+        "targetDescription": "Click Login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "assert-inventory-page",
+        "action": "assertVisible",
+        "targetDescription": "Verify Inventory page is displayed",
+        "locatorHint": ".inventory_list"
+      },
+      {
+        "id": "assert-product-list",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Verify at least one product is listed",
+        "locatorHint": ".inventory_item"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

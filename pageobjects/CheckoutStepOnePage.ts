@@ -41,18 +41,19 @@ import {
 export class CheckoutStepOnePage {
   private static readonly L = {
     openMenu: { strategy: 'role' as const, value: 'Open Menu', role: 'button', actionKind: 'button' as const },
-    shoppingCart: { strategy: 'role' as const, value: '2', role: 'link', actionKind: 'link' as const },
-    checkoutYourInformation: { strategy: 'testId' as const, value: 'title', actionKind: 'text' as const },
-    firstName: { strategy: 'testId' as const, value: 'firstName', actionKind: 'textbox' as const },
-    lastName: { strategy: 'testId' as const, value: 'lastName', actionKind: 'textbox' as const },
-    postalCode: { strategy: 'testId' as const, value: 'postalCode', actionKind: 'textbox' as const },
-    errorFirstNameIs: { strategy: 'testId' as const, value: 'error', actionKind: 'text' as const },
-    error: { strategy: 'testId' as const, value: 'error-button', actionKind: 'button' as const },
-    cancel: { strategy: 'role' as const, value: 'Cancel', role: 'button', actionKind: 'button' as const },
-    continue: { strategy: 'testId' as const, value: 'continue', actionKind: 'generic' as const },
-    twitter: { strategy: 'role' as const, value: 'Twitter', role: 'link', actionKind: 'link' as const },
-    facebook: { strategy: 'role' as const, value: 'Facebook', role: 'link', actionKind: 'link' as const },
-    linkedIn: { strategy: 'role' as const, value: 'LinkedIn', role: 'link', actionKind: 'link' as const },
+    shoppingCart: { strategy: 'css' as const, value: '[data-test="shopping-cart-link"]', actionKind: 'link' as const },
+    title: { strategy: 'css' as const, value: '[data-test="title"]', actionKind: 'text' as const },
+    firstname: { strategy: 'css' as const, value: '[data-test="firstName"]', actionKind: 'textbox' as const },
+    lastname: { strategy: 'css' as const, value: '[data-test="lastName"]', actionKind: 'textbox' as const },
+    postalcode: { strategy: 'css' as const, value: '[data-test="postalCode"]', actionKind: 'textbox' as const },
+    canc: { strategy: 'role' as const, value: 'Cancel', role: 'button', actionKind: 'button' as const },
+    continue: { strategy: 'css' as const, value: '[data-test="continue"]', actionKind: 'generic' as const },
+    socialTwitter: { strategy: 'role' as const, value: 'Twitter', role: 'link', actionKind: 'link' as const },
+    socialFacebook: { strategy: 'role' as const, value: 'Facebook', role: 'link', actionKind: 'link' as const },
+    socialLinkedin: { strategy: 'role' as const, value: 'LinkedIn', role: 'link', actionKind: 'link' as const },
+    footerCopy: { strategy: 'css' as const, value: '[data-test="footer-copy"]', actionKind: 'text' as const },
+    error: { strategy: 'css' as const, value: '[data-test="error"]', actionKind: 'text' as const },
+    errorButton: { strategy: 'css' as const, value: '[data-test="error-button"]', actionKind: 'button' as const },
   } as const;
 
   constructor(private readonly page: Page) {}
@@ -121,244 +122,184 @@ export class CheckoutStepOnePage {
     await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.shoppingCart));
   }
 
-  async getInnerTextCheckoutYourInformation(): Promise<string> {
-    return getTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation));
+  async getInnerTextTitle(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.title));
   }
 
-  async expectCheckoutYourInformationVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), expected, timeoutMs);
+  async expectTitleText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.title), expected, timeoutMs);
   }
 
-  async expectCheckoutYourInformationContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), substring, timeoutMs);
+  async expectTitleContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.title), substring, timeoutMs);
   }
 
-  async scrollCheckoutYourInformationIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation));
+  async scrollTitleIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.title));
   }
 
-  async fillFirstName(value: string): Promise<void> {
-    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstName), value);
+  async fillFirstname(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstname), value);
   }
 
-  async clearFirstName(): Promise<void> {
-    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstName));
+  async clearFirstname(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstname));
   }
 
-  async typeTextFirstName(value: string): Promise<void> {
-    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstName), value);
+  async typeTextFirstname(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstname), value);
   }
 
-  async expectFirstNameVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameValue(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.firstName), expected, timeoutMs);
+  async expectFirstnameValue(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.firstname), expected, timeoutMs);
   }
 
-  async expectFirstNameFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async scrollFirstNameIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstName));
+  async scrollFirstnameIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.firstname));
   }
 
-  async fillLastName(value: string): Promise<void> {
-    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastName), value);
+  async fillLastname(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastname), value);
   }
 
-  async clearLastName(): Promise<void> {
-    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastName));
+  async clearLastname(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastname));
   }
 
-  async typeTextLastName(value: string): Promise<void> {
-    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastName), value);
+  async typeTextLastname(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastname), value);
   }
 
-  async expectLastNameVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameValue(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.lastName), expected, timeoutMs);
+  async expectLastnameValue(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.lastname), expected, timeoutMs);
   }
 
-  async expectLastNameFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async scrollLastNameIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastName));
+  async scrollLastnameIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.lastname));
   }
 
-  async fillPostalCode(value: string): Promise<void> {
-    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalCode), value);
+  async fillPostalcode(value: string): Promise<void> {
+    await fillWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalcode), value);
   }
 
-  async clearPostalCode(): Promise<void> {
-    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalCode));
+  async clearPostalcode(): Promise<void> {
+    await clearWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalcode));
   }
 
-  async typeTextPostalCode(value: string): Promise<void> {
-    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalCode), value);
+  async typeTextPostalcode(value: string): Promise<void> {
+    await typeTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalcode), value);
   }
 
-  async expectPostalCodeVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeValue(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.postalCode), expected, timeoutMs);
+  async expectPostalcodeValue(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.postalcode), expected, timeoutMs);
   }
 
-  async expectPostalCodeFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async scrollPostalCodeIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalCode));
+  async scrollPostalcodeIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.postalcode));
   }
 
-  async getInnerTextErrorFirstNameIs(): Promise<string> {
-    return getTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs));
+  async clickCanc(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.canc));
   }
 
-  async expectErrorFirstNameIsVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
+  async doubleClickCanc(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.canc));
   }
 
-  async expectErrorFirstNameIsHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
+  async expectCancVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async expectErrorFirstNameIsText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), expected, timeoutMs);
+  async expectCancHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async expectErrorFirstNameIsContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), substring, timeoutMs);
+  async expectCancEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async scrollErrorFirstNameIsIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs));
+  async expectCancDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async clickError(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  async expectCancText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.canc), expected, timeoutMs);
   }
 
-  async doubleClickError(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  async expectCancContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.canc), substring, timeoutMs);
   }
 
-  async expectErrorVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.error), expected, timeoutMs);
-  }
-
-  async expectErrorContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.error), substring, timeoutMs);
-  }
-
-  async scrollErrorIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
-  }
-
-  async clickCancel(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.cancel));
-  }
-
-  async doubleClickCancel(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.cancel));
-  }
-
-  async expectCancelVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.cancel), expected, timeoutMs);
-  }
-
-  async expectCancelContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.cancel), substring, timeoutMs);
-  }
-
-  async scrollCancelIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.cancel));
+  async scrollCancIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.canc));
   }
 
   async clickContinue(): Promise<void> {
@@ -397,88 +338,112 @@ export class CheckoutStepOnePage {
     await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.continue));
   }
 
-  async clickTwitter(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.twitter));
+  async clickSocialTwitter(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter));
   }
 
-  async doubleClickTwitter(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.twitter));
+  async doubleClickSocialTwitter(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter));
   }
 
-  async expectTwitterVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.twitter), expected, timeoutMs);
+  async expectSocialTwitterText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), expected, timeoutMs);
   }
 
-  async expectTwitterContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.twitter), substring, timeoutMs);
+  async expectSocialTwitterContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), substring, timeoutMs);
   }
 
-  async scrollTwitterIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.twitter));
+  async scrollSocialTwitterIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter));
   }
 
-  async clickFacebook(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.facebook));
+  async clickSocialFacebook(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook));
   }
 
-  async doubleClickFacebook(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.facebook));
+  async doubleClickSocialFacebook(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook));
   }
 
-  async expectFacebookVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.facebook), expected, timeoutMs);
+  async expectSocialFacebookText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), expected, timeoutMs);
   }
 
-  async expectFacebookContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.facebook), substring, timeoutMs);
+  async expectSocialFacebookContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), substring, timeoutMs);
   }
 
-  async scrollFacebookIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.facebook));
+  async scrollSocialFacebookIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook));
   }
 
-  async clickLinkedIn(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.linkedIn));
+  async clickSocialLinkedin(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin));
   }
 
-  async doubleClickLinkedIn(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.linkedIn));
+  async doubleClickSocialLinkedin(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin));
   }
 
-  async expectLinkedInVisible(timeoutMs = 30_000): Promise<void> {
-    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), expected, timeoutMs);
+  async expectSocialLinkedinText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), expected, timeoutMs);
   }
 
-  async expectLinkedInContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), substring, timeoutMs);
+  async expectSocialLinkedinContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), substring, timeoutMs);
   }
 
-  async scrollLinkedInIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.linkedIn));
+  async scrollSocialLinkedinIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin));
+  }
+
+  async getInnerTextFooterCopy(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy));
+  }
+
+  async expectFooterCopyVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), expected, timeoutMs);
+  }
+
+  async expectFooterCopyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), substring, timeoutMs);
+  }
+
+  async scrollFooterCopyIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy));
   }
 
   async getPageTitle(): Promise<string> {
@@ -487,6 +452,66 @@ export class CheckoutStepOnePage {
 
   async expectPageTitle(expected: string | RegExp, timeoutMs = 30_000): Promise<void> {
     await expect(this.page).toHaveTitle(expected, { timeout: timeoutMs });
+  }
+
+  async getInnerTextError(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  }
+
+  async expectErrorVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.error), expected, timeoutMs);
+  }
+
+  async expectErrorContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.error), substring, timeoutMs);
+  }
+
+  async scrollErrorIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  }
+
+  async clickErrorButton(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorButton));
+  }
+
+  async doubleClickErrorButton(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorButton));
+  }
+
+  async expectErrorButtonVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.errorButton), expected, timeoutMs);
+  }
+
+  async expectErrorButtonContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.errorButton), substring, timeoutMs);
+  }
+
+  async scrollErrorButtonIntoView(): Promise<void> {
+    await scrollIntoViewWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorButton));
   }
 
 
@@ -546,192 +571,128 @@ export class CheckoutStepOnePage {
     await expectCount(webLocator(this.page, CheckoutStepOnePage.L.shoppingCart), count, timeoutMs);
   }
 
-  async clickCheckoutYourInformation(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation));
+  async clickTitle(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.title));
   }
 
-  async doubleClickCheckoutYourInformation(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation));
+  async doubleClickTitle(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.title));
   }
 
-  async longPressCheckoutYourInformation(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation));
+  async longPressTitle(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.title));
   }
 
-  async expectCheckoutYourInformationValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), value, timeoutMs);
+  async expectTitleValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.title), value, timeoutMs);
   }
 
-  async expectCheckoutYourInformationEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), timeoutMs);
+  async expectTitleFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.title), timeoutMs);
   }
 
-  async expectCheckoutYourInformationCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.checkoutYourInformation), count, timeoutMs);
+  async expectTitleCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.title), count, timeoutMs);
   }
 
-  async expectFirstNameText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.firstName), expected, timeoutMs);
+  async expectFirstnameText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.firstname), expected, timeoutMs);
   }
 
-  async expectFirstNameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.firstName), substring, timeoutMs);
+  async expectFirstnameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.firstname), substring, timeoutMs);
   }
 
-  async expectFirstNameChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.firstName), timeoutMs);
+  async expectFirstnameUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.firstname), timeoutMs);
   }
 
-  async expectFirstNameCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.firstName), count, timeoutMs);
+  async expectFirstnameCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.firstname), count, timeoutMs);
   }
 
-  async expectLastNameText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.lastName), expected, timeoutMs);
+  async expectLastnameText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.lastname), expected, timeoutMs);
   }
 
-  async expectLastNameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.lastName), substring, timeoutMs);
+  async expectLastnameContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.lastname), substring, timeoutMs);
   }
 
-  async expectLastNameChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.lastName), timeoutMs);
+  async expectLastnameUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.lastname), timeoutMs);
   }
 
-  async expectLastNameCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.lastName), count, timeoutMs);
+  async expectLastnameCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.lastname), count, timeoutMs);
   }
 
-  async expectPostalCodeText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CheckoutStepOnePage.L.postalCode), expected, timeoutMs);
+  async expectPostalcodeText(expected: string, timeoutMs = 30_000): Promise<void> {
+    await expectText(webLocator(this.page, CheckoutStepOnePage.L.postalcode), expected, timeoutMs);
   }
 
-  async expectPostalCodeContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.postalCode), substring, timeoutMs);
+  async expectPostalcodeContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CheckoutStepOnePage.L.postalcode), substring, timeoutMs);
   }
 
-  async expectPostalCodeChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.postalCode), timeoutMs);
+  async expectPostalcodeUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.postalcode), timeoutMs);
   }
 
-  async expectPostalCodeCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.postalCode), count, timeoutMs);
+  async expectPostalcodeCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.postalcode), count, timeoutMs);
   }
 
-  async clickErrorFirstNameIs(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs));
+  async longPressCanc(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.canc));
   }
 
-  async doubleClickErrorFirstNameIs(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs));
+  async expectCancValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.canc), value, timeoutMs);
   }
 
-  async longPressErrorFirstNameIs(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs));
+  async expectCancChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async expectErrorFirstNameIsValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), value, timeoutMs);
+  async expectCancUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async expectErrorFirstNameIsEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
+  async expectCancFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.canc), timeoutMs);
   }
 
-  async expectErrorFirstNameIsDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
-  }
-
-  async expectErrorFirstNameIsChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
-  }
-
-  async expectErrorFirstNameIsUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
-  }
-
-  async expectErrorFirstNameIsFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), timeoutMs);
-  }
-
-  async expectErrorFirstNameIsCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.errorFirstNameIs), count, timeoutMs);
-  }
-
-  async longPressError(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
-  }
-
-  async expectErrorValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.error), value, timeoutMs);
-  }
-
-  async expectErrorChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
-  }
-
-  async expectErrorCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.error), count, timeoutMs);
-  }
-
-  async longPressCancel(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.cancel));
-  }
-
-  async expectCancelValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.cancel), value, timeoutMs);
-  }
-
-  async expectCancelChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.cancel), timeoutMs);
-  }
-
-  async expectCancelCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.cancel), count, timeoutMs);
+  async expectCancCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.canc), count, timeoutMs);
   }
 
   async longPressContinue(): Promise<void> {
@@ -758,100 +719,204 @@ export class CheckoutStepOnePage {
     await expectCount(webLocator(this.page, CheckoutStepOnePage.L.continue), count, timeoutMs);
   }
 
-  async longPressTwitter(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.twitter));
+  async longPressSocialTwitter(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter));
   }
 
-  async expectTwitterValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.twitter), value, timeoutMs);
+  async expectSocialTwitterValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), value, timeoutMs);
   }
 
-  async expectTwitterEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.twitter), timeoutMs);
+  async expectSocialTwitterFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), timeoutMs);
   }
 
-  async expectTwitterCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.twitter), count, timeoutMs);
+  async expectSocialTwitterCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.socialTwitter), count, timeoutMs);
   }
 
-  async longPressFacebook(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.facebook));
+  async longPressSocialFacebook(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook));
   }
 
-  async expectFacebookValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.facebook), value, timeoutMs);
+  async expectSocialFacebookValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), value, timeoutMs);
   }
 
-  async expectFacebookEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.facebook), timeoutMs);
+  async expectSocialFacebookFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), timeoutMs);
   }
 
-  async expectFacebookCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.facebook), count, timeoutMs);
+  async expectSocialFacebookCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.socialFacebook), count, timeoutMs);
   }
 
-  async longPressLinkedIn(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.linkedIn));
+  async longPressSocialLinkedin(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin));
   }
 
-  async expectLinkedInValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), value, timeoutMs);
+  async expectSocialLinkedinValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), value, timeoutMs);
   }
 
-  async expectLinkedInEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), timeoutMs);
+  async expectSocialLinkedinFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), timeoutMs);
   }
 
-  async expectLinkedInCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.linkedIn), count, timeoutMs);
+  async expectSocialLinkedinCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.socialLinkedin), count, timeoutMs);
+  }
+
+  async clickFooterCopy(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy));
+  }
+
+  async doubleClickFooterCopy(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy));
+  }
+
+  async longPressFooterCopy(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.footerCopy));
+  }
+
+  async expectFooterCopyValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), value, timeoutMs);
+  }
+
+  async expectFooterCopyEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), timeoutMs);
+  }
+
+  async expectFooterCopyCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.footerCopy), count, timeoutMs);
+  }
+
+  async clickError(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  }
+
+  async doubleClickError(): Promise<void> {
+    await doubleClickWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  }
+
+  async longPressError(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.error));
+  }
+
+  async expectErrorValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.error), value, timeoutMs);
+  }
+
+  async expectErrorEnabled(timeoutMs = 30_000): Promise<void> {
+    await expectEnabled(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorDisabled(timeoutMs = 30_000): Promise<void> {
+    await expectDisabled(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.error), timeoutMs);
+  }
+
+  async expectErrorCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.error), count, timeoutMs);
+  }
+
+  async longPressErrorButton(): Promise<void> {
+    await longPressWhenVisible(webLocator(this.page, CheckoutStepOnePage.L.errorButton));
+  }
+
+  async expectErrorButtonValue(value: string, timeoutMs = 30_000): Promise<void> {
+    await expectValue(webLocator(this.page, CheckoutStepOnePage.L.errorButton), value, timeoutMs);
+  }
+
+  async expectErrorButtonChecked(timeoutMs = 30_000): Promise<void> {
+    await expectChecked(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonUnchecked(timeoutMs = 30_000): Promise<void> {
+    await expectUnchecked(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonFocused(timeoutMs = 30_000): Promise<void> {
+    await expectFocused(webLocator(this.page, CheckoutStepOnePage.L.errorButton), timeoutMs);
+  }
+
+  async expectErrorButtonCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, CheckoutStepOnePage.L.errorButton), count, timeoutMs);
   }
 
 }

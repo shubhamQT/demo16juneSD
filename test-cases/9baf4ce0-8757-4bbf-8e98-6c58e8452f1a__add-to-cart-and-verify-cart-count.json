@@ -1,0 +1,67 @@
+{
+  "id": "add-to-cart-and-verify-cart-count",
+  "testPlanId": "9baf4ce0-8757-4bbf-8e98-6c58e8452f1a",
+  "requirementId": "5d5145d4-949b-4ca5-86a7-4f89916ae06c",
+  "suiteName": "Product Listing E2E",
+  "case": {
+    "id": "add-to-cart-and-verify-cart-count",
+    "title": "User adds a product to cart and verifies cart count",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "open-login-page",
+        "action": "openUrl",
+        "targetDescription": "Navigate to the login page",
+        "locatorHint": "https://www.saucedemo.com/",
+        "value": "https://www.saucedemo.com/"
+      },
+      {
+        "id": "fill-username",
+        "action": "fill",
+        "targetDescription": "Enter username",
+        "locatorHint": "[data-test='username']",
+        "value": "standard_user"
+      },
+      {
+        "id": "fill-password",
+        "action": "fill",
+        "targetDescription": "Enter password",
+        "locatorHint": "[data-test='password']",
+        "value": "secret_sauce"
+      },
+      {
+        "id": "click-login",
+        "action": "tap",
+        "targetDescription": "Click Login button",
+        "locatorHint": "[data-test='login-button']"
+      },
+      {
+        "id": "click-add-to-cart",
+        "action": "tap",
+        "targetDescription": "Click Add to Cart for Sauce Labs Backpack",
+        "locatorHint": "[data-test='add-to-cart-sauce-labs-backpack']"
+      },
+      {
+        "id": "assert-cart-count",
+        "action": "assertText",
+        "targetDescription": "Verify cart icon shows 1 item",
+        "locatorHint": ".shopping_cart_badge",
+        "assertion": "1"
+      },
+      {
+        "id": "assert-remove-button",
+        "action": "assertVisible",
+        "targetDescription": "Verify Remove button is visible for Sauce Labs Backpack",
+        "locatorHint": "[data-test='remove-sauce-labs-backpack']"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}
