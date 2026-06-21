@@ -801,4 +801,8 @@ export class InventoryItemPage {
     await expectCount(webLocator(this.page, InventoryItemPage.L.addToCart), count, timeoutMs);
   }
 
+  async expectInventoryItemImgVisible(timeoutMs = 30_000): Promise<void> {
+    await expectVisible(webLocator(this.page, InventoryItemPage.L.inventoryItemName), timeoutMs);
+  }
+
 }
